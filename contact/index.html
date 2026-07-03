@@ -369,6 +369,110 @@
     .footer-links a:hover {
       color: var(--text-main);
     }
+
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 14, 23, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    
+    .modal-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    
+    .modal-box {
+      background: #111827;
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      width: 95%;
+      max-width: 500px;
+      padding: 32px;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+    
+    .modal-close:hover {
+      color: #fff;
+    }
+    
+    .modal-box h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    
+    .modal-box p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+    
+    .modal-divider {
+      height: 1px;
+      background: var(--border-card);
+      margin: 20px 0;
+    }
+    
+    .modal-subtext {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    
+    .copy-email-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-card);
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .copy-email-box strong {
+      color: #fff;
+    }
+    
+    .copy-email-box button {
+      background: rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      color: #a78bfa;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+    
+    .copy-email-box button:hover {
+      background: var(--accent-primary);
+      color: #fff;
+    }
   </style>
 </head>
 <body>
@@ -501,8 +605,28 @@
     </div>
   </footer>
 
-  <!-- Script to handle mailto pre-population -->
+  <!-- Success Modal -->
+  <div id="successModal" class="modal-overlay">
+    <div class="modal-box">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <h3>✉️ Opening Email Client...</h3>
+      <p>We are launching your default email application to send the message.</p>
+      <div class="modal-divider"></div>
+      <p class="modal-subtext">If your email app did not open, please email us directly:</p>
+      <div class="copy-email-box">
+        <strong>sridevsoft@gmail.com</strong>
+        <button onclick="copyEmail()" id="copyEmailBtn">Copy Email</button>
+      </div>
+      <p class="modal-subtext" style="margin-top: 15px;">Or copy your formatted message below to send manually:</p>
+      <textarea id="modalMessageCopy" class="form-control" style="background: rgba(0,0,0,0.25); font-size: 0.85rem;" rows="6" readonly></textarea>
+      <button onclick="copyMessage()" id="copyMessageBtn" class="btn-submit" style="margin-top: 15px; padding: 10px; font-size: 0.9rem;">Copy Message Body</button>
+    </div>
+  </div>
+
+  <!-- Script to handle mailto pre-population and modal display -->
   <script>
+    var mailtoBodyText = "";
+    
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       var name = document.getElementById('name').value;
@@ -510,13 +634,38 @@
       var subject = document.getElementById('subject').value;
       var message = document.getElementById('message').value;
       
-      var mailtoBody = "Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message;
+      mailtoBodyText = "Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message;
       var mailtoUrl = "mailto:sridevsoft@gmail.com" +
                       "?subject=" + encodeURIComponent(subject) +
-                      "&body=" + encodeURIComponent(mailtoBody);
+                      "&body=" + encodeURIComponent(mailtoBodyText);
       
+      document.getElementById('modalMessageCopy').value = mailtoBodyText;
+      document.getElementById('successModal').classList.add('show');
+      
+      // Attempt to open email application
       window.location.href = mailtoUrl;
     });
+
+    function closeModal() {
+      document.getElementById('successModal').classList.remove('show');
+    }
+
+    function copyEmail() {
+      navigator.clipboard.writeText("sridevsoft@gmail.com").then(function() {
+        var btn = document.getElementById('copyEmailBtn');
+        btn.innerText = "Copied!";
+        setTimeout(function() { btn.innerText = "Copy Email"; }, 2000);
+      });
+    }
+
+    function copyMessage() {
+      var textarea = document.getElementById('modalMessageCopy');
+      navigator.clipboard.writeText(textarea.value).then(function() {
+        var btn = document.getElementById('copyMessageBtn');
+        btn.innerText = "Message Copied!";
+        setTimeout(function() { btn.innerText = "Copy Message Body"; }, 2000);
+      });
+    }
   </script>
 
 </body>
