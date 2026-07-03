@@ -432,6 +432,7 @@ body.dyslexia-default {
   transition: background 0.8s ease, transform 0.15s ease-out;
   transform-style: preserve-3d;
   perspective: 1200px;
+  animation: gentle-3d-swing 8s ease-in-out infinite;
 }
 
 /* Biome Background Skins (Natural Photo Wallpapers) */
@@ -1296,4 +1297,10 @@ body.dyslexia-default {
     border-right: none;
     border-bottom: 3px solid #2c3e50;
   }
+}
+
+@keyframes gentle-3d-swing {
+  0% { transform: perspective(1200px) rotateX(1.5deg) rotateY(-1.5deg); }
+  50% { transform: perspective(1200px) rotateX(-1.5deg) rotateY(1.5deg); }
+  100% { transform: perspective(1200px) rotateX(1.5deg) rotateY(-1.5deg); }
 }

@@ -1311,8 +1311,12 @@ function init3DTiltEffect() {
   document.addEventListener("mousemove", (e) => {
     if (gameState.currentScreen !== "screen-explorer") {
       env.style.transform = "none";
+      env.style.animation = "none";
       return;
     }
+    
+    // Stop auto-swing when user is actively moving mouse
+    env.style.animation = "none";
     
     const rect = env.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -1326,12 +1330,15 @@ function init3DTiltEffect() {
   });
   
   env.addEventListener("mouseleave", () => {
-    env.style.transform = "perspective(1200px) rotateX(0deg) rotateY(0deg)";
+    // Restore default auto swing animation when mouse leaves
+    env.style.transform = "none";
+    env.style.animation = "gentle-3d-swing 8s ease-in-out infinite";
   });
   
   // Mobile touch support
   env.addEventListener("touchmove", (e) => {
     if (e.touches.length > 0) {
+      env.style.animation = "none";
       const touch = e.touches[0];
       const rect = env.getBoundingClientRect();
       const x = (touch.clientX - rect.left) / rect.width - 0.5;
@@ -1341,7 +1348,8 @@ function init3DTiltEffect() {
   });
   
   env.addEventListener("touchend", () => {
-    env.style.transform = "perspective(1200px) rotateX(0deg) rotateY(0deg)";
+    env.style.transform = "none";
+    env.style.animation = "gentle-3d-swing 8s ease-in-out infinite";
   });
 }
 
