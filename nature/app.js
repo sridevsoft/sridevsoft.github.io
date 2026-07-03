@@ -467,6 +467,27 @@ function loadGameProgress() {
     try {
       const parsed = JSON.parse(saved);
       gameState = { ...gameState, ...parsed };
+      
+      // Auto-migrate old badge formats and sync matching stickers/outfits
+      const migratedBadges = [];
+      gameState.badges.forEach(b => {
+        if (b === "badge_rf") {
+          migratedBadges.push("badge_rainforest", "sticker_rainforest", "outfit_rainforest");
+        } else if (b === "badge_ds") {
+          migratedBadges.push("badge_desert", "sticker_desert", "outfit_desert");
+        } else if (b === "badge_gl") {
+          migratedBadges.push("badge_grassland", "sticker_grassland", "outfit_grassland");
+        } else {
+          migratedBadges.push(b);
+          const biomeMatch = b.match(/^badge_(.*)$/);
+          if (biomeMatch) {
+            const biome = biomeMatch[1];
+            migratedBadges.push(`sticker_${biome}`, `outfit_${biome}`);
+          }
+        }
+      });
+      gameState.badges = Array.from(new Set(migratedBadges));
+      
       // Sync DOM elements
       document.getElementById("coin-count").innerText = gameState.coins;
       document.getElementById("star-count").innerText = gameState.stars;
@@ -881,24 +902,52 @@ function renderBookGrid() {
   grid.innerHTML = "";
   
   if (currentBookTab === "items") {
-    // Render rewards/outfits
+    // Render rewards/outfits (3 items per biome = 21 rewards)
     const rewardsList = [
-      { id: "badge_rf", name: "Rainforest Badge", icon: "🏆", biome: "rainforest", desc: "Awarded for completing the Rainforest quiz!" },
-      { id: "badge_ds", name: "Desert Badge", icon: "🏆", biome: "desert", desc: "Awarded for completing the Desert quiz!" },
-      { id: "badge_gl", name: "Grassland Badge", icon: "🏆", biome: "grassland", desc: "Awarded for completing the Grassland quiz!" },
-      { id: "hat_ds", name: "Explorer Hat", icon: "🤠", biome: "rainforest", desc: "Style item unlocked!" },
-      { id: "glasses_ds", name: "Explorer Goggles", icon: "🥽", biome: "desert", desc: "Desert sand-protection gear!" },
-      { id: "bag_gl", name: "Green Backpack", icon: "🎒", biome: "grassland", desc: "Pack for wild travels!" }
+      // Rainforest
+      { id: "badge_rainforest", name: "Rainforest Badge", icon: "🏆", desc: "Awarded for completing the Rainforest quiz!" },
+      { id: "sticker_rainforest", name: "Monkey Sticker", icon: "🐒", desc: "Cute monkey sticker for your backpack!" },
+      { id: "outfit_rainforest", name: "Explorer Hat", icon: "🤠", desc: "Explorer Hat for your adventures!" },
+      
+      // Desert
+      { id: "badge_desert", name: "Desert Badge", icon: "🏆", desc: "Awarded for completing the Desert quiz!" },
+      { id: "sticker_desert", name: "Cactus Sticker", icon: "🌵", desc: "Prickly cactus sticker for your backpack!" },
+      { id: "outfit_desert", name: "Desert Goggles", icon: "🥽", desc: "Desert sand-protection goggles!" },
+      
+      // Grassland
+      { id: "badge_grassland", name: "Grassland Badge", icon: "🏆", desc: "Awarded for completing the Grassland quiz!" },
+      { id: "sticker_grassland", name: "Bison Sticker", icon: "🦬", desc: "Fluffy bison sticker for your backpack!" },
+      { id: "outfit_grassland", name: "Green Backpack", icon: "🎒", desc: "A sturdy green backpack for hiking!" },
+
+      // Tundra
+      { id: "badge_tundra", name: "Tundra Badge", icon: "🏆", desc: "Awarded for completing the Tundra quiz!" },
+      { id: "sticker_tundra", name: "Polar Bear Sticker", icon: "🐻‍❄️", desc: "Cute polar bear sticker for your backpack!" },
+      { id: "outfit_tundra", name: "Winter Parka", icon: "🧥", desc: "A cozy winter parka to stay warm!" },
+
+      // Savanna
+      { id: "badge_savanna", name: "Savanna Badge", icon: "🏆", desc: "Awarded for completing the Savanna quiz!" },
+      { id: "sticker_savanna", name: "Lion Sticker", icon: "🦁", desc: "Roaring lion sticker for your backpack!" },
+      { id: "outfit_savanna", name: "Binoculars", icon: "👓", desc: "High-power binoculars to spot wildlife!" },
+
+      // Temperate Forest
+      { id: "badge_temperate", name: "Temperate Badge", icon: "🏆", desc: "Awarded for completing the Temperate Forest quiz!" },
+      { id: "sticker_temperate", name: "Red Fox Sticker", icon: "🦊", desc: "Clever red fox sticker for your backpack!" },
+      { id: "outfit_temperate", name: "Camping Lantern", icon: "🔦", desc: "A bright lantern to light up the dark forest!" },
+
+      // Taiga
+      { id: "badge_taiga", name: "Taiga Badge", icon: "🏆", desc: "Awarded for completing the Taiga quiz!" },
+      { id: "sticker_taiga", name: "Gray Wolf Sticker", icon: "🐺", desc: "Howling wolf sticker for your backpack!" },
+      { id: "outfit_taiga", name: "Explorer Compass", icon: "🧭", desc: "A classic compass to navigate the deep woods!" }
     ];
     
     rewardsList.forEach(item => {
       const el = document.createElement("div");
-      const isUnlocked = gameState.badges.includes(item.id) || gameState.discoveredItems.length > 5; // Unlocks some gear early
+      const isUnlocked = gameState.badges.includes(item.id);
       
       el.className = `discovery-card ${isUnlocked ? '' : 'locked'}`;
       el.innerHTML = `
-        <span class="card-icon">${item.icon}</span>
-        <h4>${item.name}</h4>
+        <span class="card-icon">${isUnlocked ? item.icon : '🔒'}</span>
+        <h4>${isUnlocked ? item.name : 'Locked'}</h4>
       `;
       
       if (isUnlocked) {
@@ -1198,15 +1247,16 @@ function finishQuiz() {
     // Unlock next biome if any
     unlockNextBiome();
     
-    // Reward badge
+    // Reward badge, sticker, and outfit
     const badgeId = `badge_${activeBiomeKey}`;
-    if (!gameState.badges.includes(badgeId)) {
-      gameState.badges.push(badgeId);
-      showRewardBadge(badgeId);
-    } else {
-      speakText(`Congratulations! You scored ${quizScore} out of 3 stars!`);
-      document.getElementById("quiz-modal").classList.remove("active");
-    }
+    const stickerId = `sticker_${activeBiomeKey}`;
+    const outfitId = `outfit_${activeBiomeKey}`;
+    
+    if (!gameState.badges.includes(badgeId)) gameState.badges.push(badgeId);
+    if (!gameState.badges.includes(stickerId)) gameState.badges.push(stickerId);
+    if (!gameState.badges.includes(outfitId)) gameState.badges.push(outfitId);
+    
+    showRewardBadge(badgeId);
   } else {
     speakText(`You earned ${quizScore} stars. Try the quiz again to unlock the next world!`);
     document.getElementById("quiz-modal").classList.remove("active");
