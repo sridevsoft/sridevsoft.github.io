@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About Sridevsoft - Our mission, philosophy, and story of creating devotional, chanting, and meditation applications.">
+  <title>About Us | Sridevsoft</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0a0e17;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --border-card: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-primary: #8b5cf6;
+      --accent-secondary: #f59e0b;
+      --accent-glow: rgba(139, 92, 246, 0.15);
+      --font-sans: 'Outfit', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Glowing decorative backgrounds */
+    .glow-blob {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, rgba(11,15,25,0) 70%);
+      z-index: -1;
+      filter: blur(40px);
+    }
+    
+    .blob-1 { top: -100px; right: -100px; }
+    .blob-2 { top: 400px; left: -200px; }
+
+    /* Container */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header & Navigation */
+    header {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border-card);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 14, 23, 0.8);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-icon {
+      font-size: 1.8rem;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--text-main);
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, var(--accent-primary), rgba(139, 92, 246, 0.8));
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 99px;
+      font-size: 0.9rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+      color: #fff;
+    }
+
+    /* Page Header */
+    .page-title {
+      padding: 80px 0 40px 0;
+      text-align: center;
+    }
+
+    .page-title h1 {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      margin-bottom: 16px;
+      background: linear-gradient(to right, #ffffff, #d1d5db);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-title p {
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      font-weight: 300;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Main Content Sections */
+    .about-section {
+      padding: 40px 0 80px 0;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(12px);
+    }
+
+    .card h2 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Key Values Grid */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 768px) {
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .value-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .value-item h3 {
+      font-size: 1.15rem;
+      color: #fff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .value-item p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border-card);
+      background: #060a10;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Glow -->
+  <div class="glow-blob blob-1"></div>
+  <div class="glow-blob blob-2"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="../" class="logo">
+        <span class="logo-icon">🪷</span>
+        <span>Sridevsoft</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="../">Home</a></li>
+          <li><a href="#" class="active">About Us</a></li>
+          <li><a href="../#apps">Apps</a></li>
+          <li><a href="../contact/">Contact Us</a></li>
+          <li><a href="../privacy/" class="nav-btn">Privacy Policy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Title Section -->
+  <section class="page-title">
+    <div class="container">
+      <h1>About Sridevsoft</h1>
+      <p>We craft high-quality mobile applications designed to bring peace, chanting, mindfulness, and spiritual focus into your daily life.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="about-section">
+    <div class="container">
+      
+      <div class="card">
+        <h2><span>🌸</span> Our Mission</h2>
+        <p>At Sridevsoft, we believe that technology can be a force for peace. Modern life is filled with persistent noise, notifications, and distractions. Our mission is to create quiet spaces within your digital devices—providing high-quality devotional chants, traditional mantra repetitions, meditation counters, and sleep relaxation utilities that help you quiet the mind and elevate the soul.</p>
+      </div>
+
+      <div class="card">
+        <h2><span>🧘</span> What We Do</h2>
+        <p>We develop mobile applications for Android that focus on spiritual mindfulness. We specialize in recording, processing, and presenting sacred mantras and devotional songs with clear, traditional audio, combined with interactive features that support daily meditation practices.</p>
+        <p>Our applications serve millions of users seeking spiritual tranquility, offering rich text lyrics in local languages, customizable chanting repeat loops, mala bead counters, and timing control parameters.</p>
+        
+        <div class="values-grid">
+          <div class="value-item">
+            <h3><span>🎧</span> High-Quality Audio</h3>
+            <p>We source and optimize serene audio loops and background ambient sounds to provide a deeply immersive meditation experience.</p>
+          </div>
+          <div class="value-item">
+            <h3><span>📿</span> Interactive Utilities</h3>
+            <p>Features like digital Mala beads, counting targets, and vibration feedback help keep track of your daily mantras without needing physical counters.</p>
+          </div>
+          <div class="value-item">
+            <h3><span>🌐</span> Offline Accessibility</h3>
+            <p>Our apps are designed to work entirely offline, ensuring you can meditate and listen to mantras anywhere without needing network coverage.</p>
+          </div>
+          <div class="value-item">
+            <h3><span>✨</span> Minimalistic UI</h3>
+            <p>We design interfaces that are simple, distraction-free, and respectful of the spiritual nature of the content.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><span>🌿</span> Our Story</h2>
+        <p>Sridevsoft started with a simple goal: to make authentic spiritual chants easily accessible to anyone, anywhere. What began as a single application dedicated to meditation and chanting has grown into a diverse catalog of over 19 applications on Google Play—including popular releases like <strong>Buddha Chants</strong>, <strong>Ganesh Moola Mantra</strong>, <strong>Kala Bhairava Ashtakam</strong>, and <strong>Sleep Relax</strong>.</p>
+        <p>We are continuously refining our apps, improving audio compression so they remain lightweight, updating lyrics, and expanding our support utilities. We are deeply grateful to our community of users who continue to share their spiritual journeys with us.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Sridevsoft. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="../">Home</a>
+        <a href="#">About Us</a>
+        <a href="../#apps">Apps</a>
+        <a href="../contact/">Contact Us</a>
+        <a href="../privacy/">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
