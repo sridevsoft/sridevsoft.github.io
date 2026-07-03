@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nature Adventure - Interactive Educational Game for Children about Earth's Biomes and Seasons">
+  <title>Nature Adventure | Educational Game</title>
+  <!-- Google Fonts for Kids and Dyslexia friendly layout -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dyslexia-default">
+
+  <!-- Main Game Container -->
+  <div id="game-container">
+    
+    <!-- Top Bar Accessibility & Status Panel -->
+    <header class="game-header">
+      <div class="logo">
+        <span class="logo-icon">🌿</span>
+        <h1>Nature Adventure</h1>
+      </div>
+      <div class="header-controls">
+        <!-- Sound & Voice Settings -->
+        <button id="btn-audio" class="control-btn" title="Toggle Nature Music" onclick="toggleMusic()">
+          <span class="icon">🎵</span>
+        </button>
+        <button id="btn-voice" class="control-btn active" title="Toggle Voice Guide" onclick="toggleVoice()">
+          <span class="icon">🔊</span>
+        </button>
+        <!-- Accessibility Font Toggle -->
+        <button id="btn-dyslexia" class="control-btn" title="Toggle Readable Font" onclick="toggleDyslexiaFont()">
+          <span class="icon">Aa</span>
+        </button>
+        <!-- Stats Counter -->
+        <div class="coin-counter">
+          <span class="coin-icon">🪙</span>
+          <span id="coin-count">0</span>
+        </div>
+        <div class="star-counter">
+          <span class="star-icon">⭐</span>
+          <span id="star-count">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Welcome / Start Screen -->
+    <section id="screen-welcome" class="game-screen active">
+      <div class="welcome-box">
+        <div class="guide-character-big">🦉</div>
+        <div class="welcome-bubble">
+          <h2>Welcome, Explorer!</h2>
+          <p id="welcome-text">"Earth is full of amazing places. Travel across the world, discover every biome, experience every season, and become a Nature Master!"</p>
+          <button class="speak-btn" onclick="speakTextById('welcome-text')">🗣️ Read to Me</button>
+        </div>
+        
+        <div class="name-entry-section">
+          <label for="explorer-name">Enter your Explorer Name:</label>
+          <input type="text" id="explorer-name" placeholder="Super Explorer" maxlength="15">
+        </div>
+
+        <button class="primary-btn pulse" onclick="startAdventure()">
+          Start Adventure! 🚀
+        </button>
+      </div>
+    </section>
+
+    <!-- Interactive World Map Screen -->
+    <section id="screen-map" class="game-screen">
+      <div class="map-overlay">
+        <h2>Interactive World Map</h2>
+        <p class="map-subtitle">Click an unlocked Biome node to travel there!</p>
+        
+        <div class="world-map">
+          <!-- SVG connections or decorations will render via CSS/SVG backgrounds -->
+          
+          <!-- Biome 1: Rainforest -->
+          <div class="biome-node unlocked" id="node-rainforest" onclick="selectBiome('rainforest')">
+            <span class="biome-icon">🌴</span>
+            <span class="biome-label">Rainforest</span>
+            <div class="biome-status">Active</div>
+          </div>
+          
+          <!-- Biome 2: Desert -->
+          <div class="biome-node locked" id="node-desert" onclick="selectBiome('desert')">
+            <span class="biome-icon">🌵</span>
+            <span class="biome-label">Desert</span>
+            <div class="biome-status">🔒 Locked</div>
+          </div>
+          
+          <!-- Biome 3: Grassland -->
+          <div class="biome-node locked" id="node-grassland" onclick="selectBiome('grassland')">
+            <span class="biome-icon">🌾</span>
+            <span class="biome-label">Grassland</span>
+            <div class="biome-status">🔒 Locked</div>
+          </div>
+          
+          <!-- Biome 4: Tundra -->
+          <div class="biome-node locked" id="node-tundra" onclick="selectBiome('tundra')">
+            <span class="biome-icon">❄️</span>
+            <span class="biome-label">Tundra</span>
+            <div class="biome-status">🔒 Locked</div>
+          </div>
+          
+          <!-- Biome 5: Savanna -->
+          <div class="biome-node locked" id="node-savanna" onclick="selectBiome('savanna')">
+            <span class="biome-icon">🦁</span>
+            <span class="biome-label">Savanna</span>
+            <div class="biome-status">🔒 Locked</div>
+          </div>
+          
+          <!-- Biome 6: Temperate Forest -->
+          <div class="biome-node locked" id="node-temperate" onclick="selectBiome('temperate')">
+            <span class="biome-icon">🍁</span>
+            <span class="biome-label">Temperate Forest</span>
+            <div class="biome-status">🔒 Locked</div>
+          </div>
+          
+          <!-- Biome 7: Taiga -->
+          <div class="biome-node locked" id="node-taiga" onclick="selectBiome('taiga')">
+            <span class="biome-icon">🌲</span>
+            <span class="biome-label">Taiga</span>
+            <div class="biome-status">🔒 Locked</div>
+          </div>
+
+          <!-- Travel Vehicle Overlay -->
+          <div id="travel-vehicle" class="vehicle-jeep">🚙</div>
+        </div>
+        
+        <div class="map-navigation">
+          <button class="secondary-btn" onclick="showScreen('screen-welcome')">⬅️ Main Menu</button>
+          <button class="secondary-btn" id="map-book-btn" onclick="openBook()">📖 Open Notebook</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Biome Explorer Screen -->
+    <section id="screen-explorer" class="game-screen">
+      
+      <!-- Biome Environment Workspace -->
+      <div id="biome-environment" class="rainforest-bg">
+        
+        <!-- Interactive Animated Weather Overlay -->
+        <div id="weather-effect" class="effect-rain"></div>
+        
+        <!-- Day/Night Overlay -->
+        <div id="time-overlay" class="day-time"></div>
+        
+        <!-- Biome Header Details -->
+        <div class="biome-header-panel">
+          <button class="back-map-btn" onclick="goToMap()">🗺️ Map</button>
+          <div class="biome-title-box">
+            <h2 id="explorer-biome-title">Tropical Rainforest</h2>
+            <div class="season-badge" id="current-season-badge">🍂 Autumn</div>
+          </div>
+          <button class="book-shortcut-btn" onclick="openBook()">📖 Book</button>
+        </div>
+
+        <!-- Parallax/Floating Cartoon Elements inside Biome -->
+        <div class="cloud cloud-1">☁️</div>
+        <div class="cloud cloud-2">☁️</div>
+        <div class="creature floating-butterfly">🦋</div>
+        <div class="creature flying-bird">🐦</div>
+
+        <!-- Clickable Active Plants/Animals in Biome (Spawns Dynamically via JS) -->
+        <div id="clickable-elements-container">
+          <!-- Dynamically filled with items like:
+               <div class="clickable-item" style="top: 60%; left: 30%;" onclick="discoverItem(...)">🐒</div>
+          -->
+        </div>
+
+        <!-- Biome HUD Overlay (Bottom Panel Controls) -->
+        <div class="biome-hud">
+          <!-- Season Selector Wheel -->
+          <div class="season-selector">
+            <span class="hud-label">Change Season:</span>
+            <div class="season-buttons">
+              <button class="season-btn spring-btn" onclick="setSeason('spring')">🌸 Spring</button>
+              <button class="season-btn summer-btn" onclick="setSeason('summer')">☀️ Summer</button>
+              <button class="season-btn autumn-btn" onclick="setSeason('autumn')">🍂 Autumn</button>
+              <button class="season-btn winter-btn" onclick="setSeason('winter')">❄️ Winter</button>
+            </div>
+          </div>
+
+          <!-- Time of Day Selector -->
+          <div class="time-selector">
+            <span class="hud-label">Time of Day:</span>
+            <div class="time-buttons">
+              <button class="time-btn" onclick="setTimeOfDay('day')">☀️ Day</button>
+              <button class="time-btn" onclick="setTimeOfDay('night')">🌙 Night</button>
+            </div>
+          </div>
+
+          <!-- Action Center -->
+          <div class="action-buttons">
+            <button class="action-btn game-action-btn" onclick="openMiniGame()">🎮 Play Game</button>
+            <button class="action-btn quiz-action-btn" id="biome-quiz-btn" onclick="openQuiz()">📝 Biome Quiz</button>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- Mini-Game Modal Overlay -->
+    <div id="game-modal" class="modal-overlay">
+      <div class="modal-card">
+        <header class="modal-header">
+          <h3 id="game-title">Rainforest Layer Matcher</h3>
+          <button class="close-modal" onclick="closeModal('game-modal')">✖️</button>
+        </header>
+        <div class="modal-content" id="game-workspace">
+          <!-- Interactive mini-game area generated dynamically -->
+        </div>
+        <footer class="modal-footer">
+          <div id="game-feedback" class="game-feedback">Drag elements to matching slots!</div>
+          <button class="primary-btn" id="game-submit-btn" style="display:none;" onclick="checkMiniGame()">Verify Answers</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Quiz Modal Overlay -->
+    <div id="quiz-modal" class="modal-overlay">
+      <div class="modal-card">
+        <header class="modal-header">
+          <h3>Biome Quiz Challenge</h3>
+          <button class="close-modal" onclick="closeModal('quiz-modal')">✖️</button>
+        </header>
+        <div class="modal-content">
+          <div class="quiz-question-box">
+            <div class="question-guide">🦉</div>
+            <div class="question-speech">
+              <p id="quiz-question-text">Question goes here?</p>
+              <button class="speak-btn small" onclick="speakTextById('quiz-question-text')">🗣️ Listen</button>
+            </div>
+          </div>
+          
+          <div class="quiz-options" id="quiz-options-container">
+            <!-- Options dynamically filled by JS -->
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <div class="quiz-progress" id="quiz-progress-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="quiz-feedback" id="quiz-feedback">Answer the question to proceed!</div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Nature Collection Book Drawer -->
+    <div id="book-modal" class="modal-overlay">
+      <div class="book-container">
+        <header class="book-header">
+          <div class="book-title">
+            <span>📖</span>
+            <h3>Nature Explorer Notebook</h3>
+          </div>
+          <button class="close-modal" onclick="closeModal('book-modal')">✖️</button>
+        </header>
+        
+        <div class="book-body">
+          <!-- Left Tab Sidebar -->
+          <div class="book-tabs">
+            <button class="tab-btn active" onclick="switchBookTab('animals')">🐾 Animals</button>
+            <button class="tab-btn" onclick="switchBookTab('plants')">🌸 Plants</button>
+            <button class="tab-btn" onclick="switchBookTab('items')">🎒 Rewards</button>
+          </div>
+          
+          <!-- Right Content Sheet -->
+          <div class="book-sheet">
+            <!-- Discoveries Grid -->
+            <div class="discoveries-grid" id="book-grid">
+              <!-- Dynamically populated card items -->
+            </div>
+            
+            <!-- Detail view panel -->
+            <div class="discovery-details" id="book-details" style="display:none;">
+              <button class="back-grid-btn" onclick="hideBookDetails()">⬅️ Back to List</button>
+              <div class="details-layout">
+                <div class="details-visual">
+                  <span id="detail-icon" class="large-icon">🦁</span>
+                  <div class="detail-badge" id="detail-habitat">Savanna</div>
+                </div>
+                <div class="details-info">
+                  <h4 id="detail-name">Lion</h4>
+                  <div class="info-block">
+                    <strong>Biome:</strong> <span id="detail-biome">Savanna</span><br>
+                    <strong>Climate:</strong> <span id="detail-climate">Warm & Dry</span>
+                  </div>
+                  <div class="details-speech">
+                    <p id="detail-fact">Lions live in grasslands and plains. They hunt in groups called prides.</p>
+                    <button class="speak-btn" onclick="speakTextById('detail-fact')">🗣️ Read Aloud</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reward / Level Up Banner Notification -->
+    <div id="reward-banner" class="banner-overlay">
+      <div class="banner-card animate-zoom">
+        <div class="badge-ribbon">🏆</div>
+        <h3 id="reward-title">Badge Unlocked!</h3>
+        <p id="reward-desc">You are officially a Rainforest Scout!</p>
+        <div id="reward-item-icon" class="large-icon">🎒</div>
+        <button class="primary-btn" onclick="dismissReward()">Awesome! 🌟</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Audio Elements -->
+  <audio id="sound-click" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>
+  <audio id="sound-success" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-84.wav" preload="auto"></audio>
+  <audio id="sound-chime" src="https://assets.mixkit.co/active_storage/sfx/2018/2018-84.wav" preload="auto"></audio>
+  <audio id="sound-rain" src="https://assets.mixkit.co/active_storage/sfx/2437/2437-84.wav" loop preload="auto"></audio>
+  <audio id="sound-birds" src="https://assets.mixkit.co/active_storage/sfx/2438/2438-84.wav" loop preload="auto"></audio>
+
+  <!-- Main Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

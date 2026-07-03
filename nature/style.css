@@ -1,0 +1,1294 @@
+/* CSS Design System for Nature Adventure Educational Game */
+
+:root {
+  --font-kid: 'Fredoka', 'Quicksand', sans-serif;
+  --font-dyslexia: 'Comic Sans MS', 'Fredoka', sans-serif;
+  
+  --color-green: #34c759;
+  --color-blue: #007aff;
+  --color-orange: #ff9500;
+  --color-gold: #ffcc00;
+  --color-purple: #af52de;
+  --color-red: #ff3b30;
+  --color-card-bg: rgba(255, 255, 255, 0.92);
+  --color-text: #2c3e50;
+  
+  --shadow-cartoon: 0 8px 0px rgba(0,0,0,0.15);
+  --border-cartoon: 4px solid #2c3e50;
+}
+
+/* Dyslexia-friendly override class */
+body.dyslexia-active {
+  font-family: var(--font-dyslexia) !important;
+  font-size: 1.1rem !important;
+  letter-spacing: 0.08em !important;
+  word-spacing: 0.15em !important;
+  line-height: 1.6 !important;
+}
+
+body.dyslexia-default {
+  font-family: var(--font-kid);
+  background: #eef9ff;
+  color: var(--color-text);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+/* Audio button state colors */
+#btn-audio.active .icon { color: var(--color-green); }
+#btn-voice.active .icon { color: var(--color-orange); }
+
+/* Root Game Wrapper */
+#game-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Header dashboard */
+.game-header {
+  height: 70px;
+  background: #fff;
+  border-bottom: var(--border-cartoon);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  z-index: 50;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  font-size: 2.2rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.logo h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: 800;
+  color: #2c3e50;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.control-btn {
+  background: #f1f3f5;
+  border: 3px solid #2c3e50;
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #2c3e50;
+  transition: all 0.1s ease;
+}
+
+.control-btn:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+.control-btn.active {
+  background: #e8f5e9;
+}
+
+.coin-counter, .star-counter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fffde7;
+  border: 3px solid #2c3e50;
+  border-radius: 16px;
+  padding: 6px 14px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 0 #2c3e50;
+}
+
+.star-counter {
+  background: #e3f2fd;
+}
+
+/* Screens Layout */
+.game-screen {
+  flex: 1;
+  display: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-screen.active {
+  display: block;
+}
+
+/* Welcome Screen */
+#screen-welcome {
+  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#screen-welcome.active {
+  display: flex;
+}
+
+.welcome-box {
+  background: var(--color-card-bg);
+  border: var(--border-cartoon);
+  border-radius: 32px;
+  padding: 40px;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: var(--shadow-cartoon);
+  position: relative;
+}
+
+.guide-character-big {
+  font-size: 5rem;
+  margin-bottom: -15px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.welcome-bubble {
+  background: #fff;
+  border: 3px solid #2c3e50;
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.welcome-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent #2c3e50 transparent;
+}
+
+.welcome-bubble h2 {
+  margin-top: 0;
+  color: var(--color-blue);
+  font-size: 1.8rem;
+}
+
+.name-entry-section {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.name-entry-section label {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.name-entry-section input {
+  font-family: var(--font-kid);
+  font-size: 1.2rem;
+  padding: 8px 16px;
+  border: 3px solid #2c3e50;
+  border-radius: 16px;
+  text-align: center;
+  width: 80%;
+  max-width: 250px;
+}
+
+/* Buttons System */
+.primary-btn {
+  background: var(--color-green);
+  color: white;
+  font-family: var(--font-kid);
+  font-size: 1.5rem;
+  font-weight: 800;
+  padding: 16px 36px;
+  border: var(--border-cartoon);
+  border-radius: 24px;
+  cursor: pointer;
+  box-shadow: 0 8px 0 #1b5e20;
+  transition: all 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.primary-btn:active {
+  transform: translateY(6px);
+  box-shadow: 0 2px 0 #1b5e20;
+}
+
+.secondary-btn {
+  background: var(--color-blue);
+  color: white;
+  font-family: var(--font-kid);
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 10px 24px;
+  border: 3px solid #2c3e50;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #0d47a1;
+  transition: all 0.1s ease;
+}
+
+.secondary-btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #0d47a1;
+}
+
+.speak-btn {
+  background: #fff9c4;
+  color: #5d4037;
+  border: 2px solid #2c3e50;
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-family: var(--font-kid);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.speak-btn.small {
+  margin-top: 0;
+}
+
+/* Map Screen Layout */
+#screen-map {
+  background: radial-gradient(circle, #eef9ff 0%, #b2ebf2 100%);
+  padding: 20px;
+}
+
+.map-overlay {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-overlay h2 {
+  font-size: 2.2rem;
+  margin: 10px 0 5px 0;
+  color: #37474f;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.map-subtitle {
+  font-size: 1.1rem;
+  margin: 0 0 20px 0;
+  color: #546e7a;
+}
+
+.world-map {
+  flex: 1;
+  background: #a5d6a7;
+  border: var(--border-cartoon);
+  border-radius: 36px;
+  box-shadow: var(--shadow-cartoon);
+  position: relative;
+  margin-bottom: 20px;
+  overflow: hidden;
+  background-image: radial-gradient(#81c784 20%, transparent 20%),
+                    radial-gradient(#81c784 20%, transparent 20%);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+
+.biome-node {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background: white;
+  border: 3px solid #2c3e50;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #2c3e50;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 10;
+}
+
+.biome-node:hover {
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0 11px 0 #2c3e50;
+}
+
+.biome-node:active {
+  transform: scale(0.95) translateY(2px);
+  box-shadow: 0 2px 0 #2c3e50;
+}
+
+.biome-node.locked {
+  background: #cfd8dc;
+  border-color: #78909c;
+  cursor: not-allowed;
+  box-shadow: 0 6px 0 #78909c;
+}
+
+.biome-node.locked:hover {
+  transform: none;
+  box-shadow: 0 6px 0 #78909c;
+}
+
+.biome-node.unlocked {
+  border-color: var(--color-green);
+  box-shadow: 0 6px 0 var(--color-green);
+}
+
+.biome-icon {
+  font-size: 2.2rem;
+}
+
+.biome-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #2c3e50;
+  position: absolute;
+  top: 100%;
+  background: white;
+  padding: 2px 8px;
+  border: 2px solid #2c3e50;
+  border-radius: 8px;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+
+.biome-status {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #78909c;
+  margin-top: 2px;
+}
+
+.unlocked .biome-status {
+  color: #2e7d32;
+  font-weight: 800;
+}
+
+/* Map coordinates for the nodes */
+#node-rainforest { top: 60%; left: 15%; }
+#node-desert { top: 40%; left: 35%; }
+#node-grassland { top: 25%; left: 60%; }
+#node-tundra { top: 15%; left: 80%; }
+#node-savanna { top: 65%; left: 45%; }
+#node-temperate { top: 35%; left: 75%; }
+#node-taiga { top: 25%; left: 25%; }
+
+#travel-vehicle {
+  position: absolute;
+  font-size: 2.5rem;
+  z-index: 20;
+  transition: all 1.5s ease-in-out;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+.map-navigation {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+/* Biome Explorer Screen */
+#biome-environment {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-size: cover;
+  background-position: center;
+  transition: background 0.8s ease;
+}
+
+/* Biome Background Skins */
+.rainforest-bg {
+  background: linear-gradient(to bottom, #a8e6cf 0%, #3db87a 100%);
+}
+.desert-bg {
+  background: linear-gradient(to bottom, #ffe082 0%, #ffb300 100%);
+}
+.grassland-bg {
+  background: linear-gradient(to bottom, #c8e6c9 0%, #4caf50 100%);
+}
+.tundra-bg {
+  background: linear-gradient(to bottom, #e0f7fa 0%, #80deea 100%);
+}
+.savanna-bg {
+  background: linear-gradient(to bottom, #ffe0b2 0%, #ff9800 100%);
+}
+.temperate-bg {
+  background: linear-gradient(to bottom, #d7ccc8 0%, #8d6e63 100%);
+}
+.taiga-bg {
+  background: linear-gradient(to bottom, #b2dfdb 0%, #00796b 100%);
+}
+
+/* Weather Overlays */
+#weather-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Dynamic rain simulation using linear gradients */
+.effect-rain {
+  background: repeat url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='40'><line x1='10' y1='0' x2='5' y2='40' stroke='rgba(174,219,255,0.6)' stroke-width='1.5'/></svg>");
+  animation: rainFall 0.8s linear infinite;
+}
+
+.effect-snow {
+  background: repeat url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'><circle cx='20' cy='20' r='3' fill='white' opacity='0.8'/></svg>");
+  animation: snowFall 4s linear infinite;
+}
+
+.effect-leaves {
+  background: repeat url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><path d='M20,10 C30,10 40,20 40,30 C30,30 20,20 20,10 Z' fill='%23e056fd' opacity='0.7'/><path d='M70,50 C80,50 90,60 90,70 C80,70 70,60 70,50 Z' fill='%23ffbe76' opacity='0.7'/></svg>");
+  animation: leafFall 6s linear infinite;
+}
+
+/* Day/Night Time system overlay */
+#time-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+  transition: background 1.5s ease;
+}
+
+.day-time {
+  background: transparent;
+}
+
+.night-time {
+  background: rgba(13, 27, 42, 0.65);
+}
+
+/* HUD Header Details */
+.biome-header-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  z-index: 10;
+}
+
+.back-map-btn, .book-shortcut-btn {
+  background: white;
+  border: 3px solid #2c3e50;
+  border-radius: 16px;
+  padding: 8px 16px;
+  font-family: var(--font-kid);
+  font-weight: 800;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #2c3e50;
+}
+
+.back-map-btn:active, .book-shortcut-btn:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.biome-title-box {
+  background: white;
+  border: 3px solid #2c3e50;
+  border-radius: 20px;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 0 #2c3e50;
+}
+
+.biome-title-box h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.season-badge {
+  background: var(--color-orange);
+  color: white;
+  border-radius: 12px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+/* Dynamic Clickable Creatures */
+#clickable-elements-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  z-index: 8;
+}
+
+.clickable-item {
+  position: absolute;
+  font-size: 3.5rem;
+  cursor: pointer;
+  user-select: none;
+  animation: gentle-wobble 4s ease-in-out infinite;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.clickable-item:hover {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.clickable-item.discovered::after {
+  content: '✅';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 1.2rem;
+}
+
+/* Clouds and animals floating */
+.cloud {
+  position: absolute;
+  font-size: 4rem;
+  color: white;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.cloud-1 {
+  top: 15%;
+  animation: driftRight 45s linear infinite;
+}
+
+.cloud-2 {
+  top: 25%;
+  animation: driftRight 65s linear infinite;
+}
+
+.floating-butterfly {
+  position: absolute;
+  top: 60%;
+  left: 10%;
+  font-size: 2.2rem;
+  animation: butterflyFlap 12s linear infinite;
+  pointer-events: none;
+}
+
+.flying-bird {
+  position: absolute;
+  top: 20%;
+  left: -10%;
+  font-size: 2.2rem;
+  animation: birdFly 20s linear infinite;
+  pointer-events: none;
+}
+
+/* Biome HUD Controls */
+.biome-hud {
+  background: var(--color-card-bg);
+  border-top: var(--border-cartoon);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.season-selector, .time-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hud-label {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #455a64;
+}
+
+.season-buttons, .time-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.season-btn, .time-btn, .action-btn {
+  font-family: var(--font-kid);
+  font-weight: 800;
+  font-size: 0.95rem;
+  padding: 8px 14px;
+  border: 3px solid #2c3e50;
+  border-radius: 12px;
+  cursor: pointer;
+  background: white;
+  box-shadow: 0 4px 0 #2c3e50;
+  transition: all 0.1s ease;
+}
+
+.season-btn:active, .time-btn:active, .action-btn:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.season-btn.active, .time-btn.active {
+  background: #fff59d;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.game-action-btn {
+  background: var(--color-purple);
+  color: white;
+  box-shadow: 0 4px 0 #6d1b7b;
+}
+
+.quiz-action-btn {
+  background: var(--color-orange);
+  color: white;
+  box-shadow: 0 4px 0 #e65100;
+}
+
+/* Modal Windows System */
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 16px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-card {
+  background: white;
+  border: var(--border-cartoon);
+  border-radius: 28px;
+  width: 90%;
+  max-width: 580px;
+  max-height: 85%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-cartoon);
+  overflow: hidden;
+  animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-header {
+  background: #f1f3f5;
+  border-bottom: 3px solid #2c3e50;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #2c3e50;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #78909c;
+  transition: color 0.2s ease;
+}
+
+.close-modal:hover {
+  color: var(--color-red);
+}
+
+.modal-content {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  background: #f1f3f5;
+  border-top: 3px solid #2c3e50;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Quiz Design */
+.quiz-question-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #f8f9fa;
+  border: 3px solid #2c3e50;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.question-guide {
+  font-size: 3.5rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+.question-speech {
+  flex: 1;
+}
+
+.question-speech p {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quiz-opt-btn {
+  background: white;
+  border: 3px solid #2c3e50;
+  border-radius: 16px;
+  padding: 14px 20px;
+  font-family: var(--font-kid);
+  font-size: 1.05rem;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #2c3e50;
+  transition: all 0.1s ease;
+}
+
+.quiz-opt-btn:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.quiz-opt-btn.correct {
+  background: #c8e6c9 !important;
+  border-color: #2e7d32 !important;
+  color: #1b5e20 !important;
+  box-shadow: 0 4px 0 #2e7d32 !important;
+}
+
+.quiz-opt-btn.wrong {
+  background: #ffcdd2 !important;
+  border-color: #c62828 !important;
+  color: #b71c1c !important;
+  box-shadow: 0 4px 0 #c62828 !important;
+}
+
+.quiz-progress {
+  display: flex;
+  gap: 8px;
+}
+
+.quiz-progress .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #cfd8dc;
+  border: 2px solid #2c3e50;
+}
+
+.quiz-progress .dot.active {
+  background: var(--color-gold);
+}
+
+.quiz-progress .dot.correct {
+  background: var(--color-green);
+}
+
+.quiz-feedback {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: #546e7a;
+}
+
+/* Interactive Mini-Games Workspace */
+.matching-game {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.game-instructions {
+  background: #e3f2fd;
+  border: 2px solid #90caf9;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.drag-items-container, .drop-targets-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.drag-item {
+  background: #fff9c4;
+  border: 3px solid #2c3e50;
+  border-radius: 14px;
+  padding: 8px 16px;
+  font-weight: 800;
+  cursor: grab;
+  box-shadow: 0 4px 0 #2c3e50;
+  user-select: none;
+  font-size: 1rem;
+}
+
+.drag-item:active {
+  cursor: grabbing;
+}
+
+.drop-target {
+  background: #f5f5f5;
+  border: 3px dashed #b0bec5;
+  border-radius: 16px;
+  padding: 16px;
+  min-width: 130px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.drop-target.hovered {
+  background: #e1f5fe;
+  border-color: var(--color-blue);
+  border-style: solid;
+}
+
+.drop-target .filled-item {
+  background: #a5d6a7;
+  border: 2px solid #2e7d32;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+
+/* Nature Notebook (Book Layout) */
+.book-container {
+  background: white;
+  border: var(--border-cartoon);
+  border-radius: 36px;
+  width: 95%;
+  max-width: 820px;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-cartoon);
+  overflow: hidden;
+  animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.book-header {
+  background: #fbe9e7;
+  border-bottom: var(--border-cartoon);
+  padding: 18px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.book-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #d84315;
+}
+
+.book-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.book-tabs {
+  width: 160px;
+  background: #efebe9;
+  border-right: 3px solid #2c3e50;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 10px;
+}
+
+.tab-btn {
+  font-family: var(--font-kid);
+  font-weight: 800;
+  font-size: 1rem;
+  padding: 12px;
+  border: 3px solid #2c3e50;
+  border-radius: 14px;
+  background: white;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #2c3e50;
+  text-align: left;
+  transition: all 0.1s ease;
+}
+
+.tab-btn:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.tab-btn.active {
+  background: #ffab91;
+  color: #d84315;
+  box-shadow: 0 4px 0 #d84315;
+  border-color: #d84315;
+}
+
+.book-sheet {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background: #fffbf7;
+}
+
+.discoveries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 16px;
+}
+
+.discovery-card {
+  background: white;
+  border: 3px solid #2c3e50;
+  border-radius: 20px;
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #2c3e50;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.discovery-card:hover {
+  transform: scale(1.05);
+}
+
+.discovery-card.locked {
+  background: #eceff1;
+  border-color: #b0bec5;
+  box-shadow: 0 4px 0 #b0bec5;
+  cursor: not-allowed;
+}
+
+.discovery-card .card-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.discovery-card.locked .card-icon {
+  filter: grayscale(1);
+  opacity: 0.4;
+}
+
+.discovery-card h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #2c3e50;
+}
+
+.discovery-card.locked h4 {
+  color: #b0bec5;
+}
+
+/* Detail panel view in Book */
+.discovery-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeIn 0.4s ease;
+}
+
+.back-grid-btn {
+  align-self: flex-start;
+  background: white;
+  border: 2px solid #2c3e50;
+  border-radius: 12px;
+  padding: 6px 12px;
+  font-family: var(--font-kid);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.details-layout {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.details-visual {
+  background: white;
+  border: 3px solid #2c3e50;
+  border-radius: 24px;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 6px 0 #2c3e50;
+}
+
+.large-icon {
+  font-size: 5rem;
+}
+
+.detail-badge {
+  position: absolute;
+  bottom: -10px;
+  background: var(--color-orange);
+  color: white;
+  font-weight: 800;
+  font-size: 0.85rem;
+  border: 2px solid #2c3e50;
+  border-radius: 8px;
+  padding: 2px 10px;
+}
+
+.details-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.details-info h4 {
+  font-size: 2rem;
+  margin: 0;
+  color: #2c3e50;
+}
+
+.info-block {
+  font-size: 1.05rem;
+  line-height: 1.5;
+  background: #fbe9e7;
+  padding: 12px;
+  border-radius: 14px;
+}
+
+.details-speech {
+  background: white;
+  border: 2px solid #b0bec5;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.details-speech p {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* Reward Notification Overlay */
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 120;
+}
+
+.banner-overlay.active {
+  display: flex;
+}
+
+.banner-card {
+  background: white;
+  border: var(--border-cartoon);
+  border-radius: 36px;
+  padding: 32px;
+  text-align: center;
+  max-width: 420px;
+  box-shadow: var(--shadow-cartoon);
+  position: relative;
+}
+
+.badge-ribbon {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  animation: rotateGlow 5s linear infinite;
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes gentle-wobble {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  75% { transform: rotate(-3deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes driftRight {
+  0% { left: -100px; }
+  100% { left: 110%; }
+}
+
+@keyframes butterflyFlap {
+  0% { top: 60%; left: -5%; transform: scaleX(1); }
+  50% { top: 40%; left: 50%; transform: scaleX(-1); }
+  100% { top: 60%; left: 105%; transform: scaleX(1); }
+}
+
+@keyframes birdFly {
+  0% { top: 20%; left: -10%; transform: scaleX(1); }
+  100% { top: 10%; left: 110%; transform: scaleX(1); }
+}
+
+@keyframes rainFall {
+  0% { background-position: 0px 0px; }
+  100% { background-position: -100px 800px; }
+}
+
+@keyframes snowFall {
+  0% { background-position: 0px 0px; }
+  100% { background-position: 50px 400px; }
+}
+
+@keyframes leafFall {
+  0% { background-position: 0px 0px; }
+  100% { background-position: -20px 600px; }
+}
+
+@keyframes modalPop {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes rotateGlow {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.pulse {
+  animation: pulseAnimation 2s infinite;
+}
+
+@keyframes pulseAnimation {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .game-header {
+    height: auto;
+    flex-direction: column;
+    padding: 10px;
+    gap: 8px;
+  }
+  
+  .biome-hud {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    gap: 12px;
+  }
+  
+  .biome-node {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .biome-icon {
+    font-size: 1.8rem;
+  }
+  
+  .book-body {
+    flex-direction: column;
+  }
+  
+  .book-tabs {
+    width: 100%;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 8px;
+    border-right: none;
+    border-bottom: 3px solid #2c3e50;
+  }
+}
