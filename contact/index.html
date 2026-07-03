@@ -609,17 +609,31 @@
   <div id="successModal" class="modal-overlay">
     <div class="modal-box">
       <span class="modal-close" onclick="closeModal()">&times;</span>
-      <h3>✉️ Opening Email Client...</h3>
-      <p>We are launching your default email application to send the message.</p>
+      <h3>✉️ How would you like to send?</h3>
+      <p>Please choose your preferred method to send your message to <strong>sridevsoft@gmail.com</strong>:</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+        <!-- Option 1: Gmail Web -->
+        <a id="gmailLink" href="#" target="_blank" class="btn-submit" style="background: #ea4335; padding: 12px; text-decoration: none; font-size: 0.95rem; justify-content: center; display: flex; align-items: center; gap: 8px;">
+          <span>📧</span> Send via Gmail (Web Browser)
+        </a>
+        
+        <!-- Option 2: Default Mail App -->
+        <a id="defaultMailLink" href="#" class="btn-submit" style="background: #3b82f6; padding: 12px; text-decoration: none; font-size: 0.95rem; justify-content: center; display: flex; align-items: center; gap: 8px;">
+          <span>💻</span> Open Default Email App
+        </a>
+      </div>
+
       <div class="modal-divider"></div>
-      <p class="modal-subtext">If your email app did not open, please email us directly:</p>
-      <div class="copy-email-box">
+      
+      <p class="modal-subtext">Or copy the email and message to send manually:</p>
+      <div class="copy-email-box" style="margin-bottom: 12px;">
         <strong>sridevsoft@gmail.com</strong>
         <button onclick="copyEmail()" id="copyEmailBtn">Copy Email</button>
       </div>
-      <p class="modal-subtext" style="margin-top: 15px;">Or copy your formatted message below to send manually:</p>
-      <textarea id="modalMessageCopy" class="form-control" style="background: rgba(0,0,0,0.25); font-size: 0.85rem;" rows="6" readonly></textarea>
-      <button onclick="copyMessage()" id="copyMessageBtn" class="btn-submit" style="margin-top: 15px; padding: 10px; font-size: 0.9rem;">Copy Message Body</button>
+      
+      <textarea id="modalMessageCopy" class="form-control" style="background: rgba(0,0,0,0.25); font-size: 0.85rem;" rows="5" readonly></textarea>
+      <button onclick="copyMessage()" id="copyMessageBtn" class="btn-submit" style="margin-top: 12px; padding: 10px; font-size: 0.9rem; background: rgba(255,255,255,0.02); border: 1px solid var(--border-card); color: #fff; box-shadow: none;">Copy Message Body</button>
     </div>
   </div>
 
@@ -635,11 +649,19 @@
       var message = document.getElementById('message').value;
       
       mailtoBodyText = "Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message;
+      
       var mailtoUrl = "mailto:sridevsoft@gmail.com" +
                       "?subject=" + encodeURIComponent(subject) +
                       "&body=" + encodeURIComponent(mailtoBodyText);
+                      
+      var gmailUrl = "https://mail.google.com/mail/?view=cm&fs=1&to=sridevsoft@gmail.com" +
+                     "&su=" + encodeURIComponent(subject) +
+                     "&body=" + encodeURIComponent(mailtoBodyText);
       
       document.getElementById('modalMessageCopy').value = mailtoBodyText;
+      document.getElementById('gmailLink').href = gmailUrl;
+      document.getElementById('defaultMailLink').href = mailtoUrl;
+      
       document.getElementById('successModal').classList.add('show');
       
       // Attempt to open email application
