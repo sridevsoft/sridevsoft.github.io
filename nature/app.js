@@ -1303,10 +1303,53 @@ function dismissReward() {
   showScreen("screen-map");
 }
 
+// Add 3D Tilt Parallax Effect
+function init3DTiltEffect() {
+  const env = document.getElementById("biome-environment");
+  if (!env) return;
+  
+  document.addEventListener("mousemove", (e) => {
+    if (gameState.currentScreen !== "screen-explorer") {
+      env.style.transform = "none";
+      return;
+    }
+    
+    const rect = env.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    
+    // Tilt the environment (max 10 degrees)
+    const tiltX = -y * 10;
+    const tiltY = x * 10;
+    
+    env.style.transform = `perspective(1200px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+  });
+  
+  env.addEventListener("mouseleave", () => {
+    env.style.transform = "perspective(1200px) rotateX(0deg) rotateY(0deg)";
+  });
+  
+  // Mobile touch support
+  env.addEventListener("touchmove", (e) => {
+    if (e.touches.length > 0) {
+      const touch = e.touches[0];
+      const rect = env.getBoundingClientRect();
+      const x = (touch.clientX - rect.left) / rect.width - 0.5;
+      const y = (touch.clientY - rect.top) / rect.height - 0.5;
+      env.style.transform = `perspective(1200px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg)`;
+    }
+  });
+  
+  env.addEventListener("touchend", () => {
+    env.style.transform = "perspective(1200px) rotateX(0deg) rotateY(0deg)";
+  });
+}
+
 // ----------------------------------------------------
 // 12. INITIALIZATION
 // ----------------------------------------------------
 
 window.addEventListener("DOMContentLoaded", () => {
   loadGameProgress();
+  init3DTiltEffect();
 });
