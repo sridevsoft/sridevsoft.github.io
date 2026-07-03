@@ -43,6 +43,10 @@
           <span class="star-icon">⭐</span>
           <span id="star-count">0</span>
         </div>
+        <!-- Header Custom Avatar -->
+        <div class="header-avatar" onclick="showScreen('screen-welcome')" title="Change Avatar Style">
+          <span id="header-avatar-icon">🧑</span>
+        </div>
       </div>
     </header>
 
@@ -56,6 +60,21 @@
           <button class="speak-btn" onclick="speakTextById('welcome-text')">🗣️ Read to Me</button>
         </div>
         
+        <div class="avatar-customizer">
+          <div class="avatar-display" id="avatar-preview">
+            <span class="avatar-base" id="base-char-icon">🧑</span>
+            <span class="avatar-hat" id="equip-hat-icon"></span>
+            <span class="avatar-backpack" id="equip-backpack-icon">🎒</span>
+            <span class="avatar-accessory" id="equip-accessory-icon"></span>
+            <span class="avatar-hand" id="equip-hand-icon"></span>
+          </div>
+          <div class="avatar-arrows">
+            <button class="arrow-btn" onclick="changeAvatarBase(-1)">◀️</button>
+            <span>Choose Character</span>
+            <button class="arrow-btn" onclick="changeAvatarBase(1)">▶️</button>
+          </div>
+        </div>
+
         <div class="name-entry-section">
           <label for="explorer-name">Enter your Explorer Name:</label>
           <input type="text" id="explorer-name" placeholder="Super Explorer" maxlength="15">
@@ -294,6 +313,9 @@
                   <div class="details-speech">
                     <p id="detail-fact">Lions live in grasslands and plains. They hunt in groups called prides.</p>
                     <button class="speak-btn" onclick="speakTextById('detail-fact')">🗣️ Read Aloud</button>
+                  </div>
+                  <div class="equip-control" id="details-equip-box" style="display:none; margin-top: 14px;">
+                    <button class="primary-btn" id="btn-equip-item" style="font-size: 1.1rem; padding: 10px 24px; box-shadow: 0 4px 0 #1b5e20;" onclick="equipSelectedItem()">Equip Item 👕</button>
                   </div>
                 </div>
               </div>

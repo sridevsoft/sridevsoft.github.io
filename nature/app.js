@@ -452,6 +452,13 @@ let gameState = {
   unlockedBiomes: ["rainforest"],
   discoveredItems: [],
   badges: [],
+  equipped: {
+    avatar: "🧑",
+    hat: "",
+    backpack: "🎒",
+    accessory: "",
+    hand: ""
+  },
   currentScreen: "screen-welcome",
   currentSeason: "summer",
   currentTimeOfDay: "day",
@@ -488,11 +495,22 @@ function loadGameProgress() {
       });
       gameState.badges = Array.from(new Set(migratedBadges));
       
+      if (!gameState.equipped) {
+        gameState.equipped = {
+          avatar: "🧑",
+          hat: "",
+          backpack: "🎒",
+          accessory: "",
+          hand: ""
+        };
+      }
+      
       // Sync DOM elements
       document.getElementById("coin-count").innerText = gameState.coins;
       document.getElementById("star-count").innerText = gameState.stars;
       document.getElementById("explorer-name").value = gameState.explorerName;
       updateMapNodes();
+      updateAvatarVisuals();
     } catch (e) {
       console.error("Save state corrupt, starting fresh");
     }
@@ -952,7 +970,7 @@ function renderBookGrid() {
       
       if (isUnlocked) {
         el.onclick = () => {
-          speakText(`${item.name}. ${item.desc}`);
+          openRewardDetails(item);
         };
       } else {
         el.onclick = () => {
@@ -1301,6 +1319,134 @@ function dismissReward() {
   playClickSound();
   document.getElementById("reward-banner").classList.remove("active");
   showScreen("screen-map");
+}
+
+// ----------------------------------------------------
+// 11.5 EXPLORER AVATAR & CUSTOMIZATION logic
+// ----------------------------------------------------
+
+let selectedRewardItem = null;
+
+function changeAvatarBase(dir) {
+  playClickSound();
+  const bases = ["🧑", "👧", "👦", "👱", "👨", "👩", "🦁", "🦉"];
+  let idx = bases.indexOf(gameState.equipped.avatar);
+  if (idx === -1) idx = 0;
+  idx = (idx + dir + bases.length) % bases.length;
+  gameState.equipped.avatar = bases[idx];
+  updateAvatarVisuals();
+  saveGameProgress();
+}
+
+function updateAvatarVisuals() {
+  if (!gameState.equipped) return;
+  
+  // Welcome page preview
+  const baseIcon = document.getElementById("base-char-icon");
+  if (baseIcon) baseIcon.innerText = gameState.equipped.avatar;
+  
+  const hatIcon = document.getElementById("equip-hat-icon");
+  if (hatIcon) hatIcon.innerText = gameState.equipped.hat || "";
+  
+  const bagIcon = document.getElementById("equip-backpack-icon");
+  if (bagIcon) bagIcon.innerText = gameState.equipped.backpack || "🎒";
+  
+  const accIcon = document.getElementById("equip-accessory-icon");
+  if (accIcon) accIcon.innerText = gameState.equipped.accessory || "";
+  
+  const handIcon = document.getElementById("equip-hand-icon");
+  if (handIcon) handIcon.innerText = gameState.equipped.hand || "";
+  
+  // Header icon sync
+  const headerIcon = document.getElementById("header-avatar-icon");
+  if (headerIcon) headerIcon.innerText = gameState.equipped.avatar;
+}
+
+function openRewardDetails(item) {
+  selectedRewardItem = item;
+  document.getElementById("book-grid").style.display = "none";
+  const details = document.getElementById("book-details");
+  details.style.display = "block";
+  
+  document.getElementById("detail-icon").innerText = item.icon;
+  document.getElementById("detail-name").innerText = item.name;
+  document.getElementById("detail-biome").innerText = item.desc;
+  document.getElementById("detail-habitat").innerText = "Unlocked Reward";
+  document.getElementById("detail-climate").innerText = "Item Chest";
+  document.getElementById("detail-fact").innerText = item.desc;
+  
+  const equipBox = document.getElementById("details-equip-box");
+  if (equipBox) {
+    if (item.id.startsWith("outfit_") || item.id.startsWith("sticker_")) {
+      equipBox.style.display = "block";
+      const btn = document.getElementById("btn-equip-item");
+      
+      let isEquipped = false;
+      const id = item.id;
+      if (id === "outfit_rainforest" && gameState.equipped.hat === "🤠") isEquipped = true;
+      if (id === "outfit_desert" && gameState.equipped.accessory === "🥽") isEquipped = true;
+      if (id === "outfit_grassland" && gameState.equipped.backpack === "🎒") isEquipped = true;
+      if (id === "outfit_tundra" && gameState.equipped.accessory === "🧥") isEquipped = true;
+      if (id === "outfit_savanna" && gameState.equipped.accessory === "🕶️") isEquipped = true;
+      if (id === "outfit_temperate" && gameState.equipped.hand === "🔦") isEquipped = true;
+      if (id === "outfit_taiga" && gameState.equipped.hand === "🧭") isEquipped = true;
+      
+      if (isEquipped) {
+        btn.innerText = "Equipped ✅";
+        btn.disabled = true;
+      } else {
+        btn.innerText = "Equip Item 👕";
+        btn.disabled = false;
+      }
+    } else {
+      equipBox.style.display = "none";
+    }
+  }
+  
+  speakText(`${item.name}. ${item.desc}`);
+}
+
+function equipSelectedItem() {
+  if (!selectedRewardItem) return;
+  playSuccessSound();
+  
+  const id = selectedRewardItem.id;
+  if (id.startsWith("outfit_")) {
+    if (id === "outfit_rainforest") {
+      gameState.equipped.hat = "🤠";
+      speakText("Equipped Explorer Hat!");
+    } else if (id === "outfit_desert") {
+      gameState.equipped.accessory = "🥽";
+      speakText("Equipped Desert Goggles!");
+    } else if (id === "outfit_grassland") {
+      gameState.equipped.backpack = "🎒";
+      speakText("Equipped Green Backpack!");
+    } else if (id === "outfit_tundra") {
+      gameState.equipped.accessory = "🧥";
+      speakText("Equipped Warm Winter Parka!");
+    } else if (id === "outfit_savanna") {
+      gameState.equipped.accessory = "🕶️";
+      speakText("Equipped Explorer Binoculars!");
+    } else if (id === "outfit_temperate") {
+      gameState.equipped.hand = "🔦";
+      speakText("Equipped Camping Lantern!");
+    } else if (id === "outfit_taiga") {
+      gameState.equipped.hand = "🧭";
+      speakText("Equipped Explorer Compass!");
+    }
+  } else if (id.startsWith("sticker_")) {
+    gameState.equipped.backpack = "🎒✨";
+    speakText("Placed sticker on your backpack!");
+  }
+  
+  updateAvatarVisuals();
+  saveGameProgress();
+  
+  const btn = document.getElementById("btn-equip-item");
+  if (btn) {
+    btn.innerText = "Equipped ✅";
+    btn.disabled = true;
+  }
 }
 
 // Add 3D Tilt Parallax Effect

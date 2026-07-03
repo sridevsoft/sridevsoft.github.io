@@ -1304,3 +1304,109 @@ body.dyslexia-default {
   50% { transform: perspective(1200px) rotateX(-1.5deg) rotateY(1.5deg); }
   100% { transform: perspective(1200px) rotateX(1.5deg) rotateY(-1.5deg); }
 }
+
+/* Avatar Preview & Customizer CSS */
+.avatar-customizer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+  background: white;
+  border: 3px solid #2c3e50;
+  border-radius: 24px;
+  padding: 16px;
+  box-shadow: 0 6px 0 #2c3e50;
+  width: 200px;
+  margin: 15px auto;
+}
+
+.avatar-display {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f8e9;
+  border: 3px solid #2c3e50;
+  border-radius: 50%;
+  margin-bottom: 12px;
+}
+
+.avatar-base {
+  font-size: 3.8rem;
+  line-height: 1;
+}
+
+.avatar-hat {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.8rem;
+  pointer-events: none;
+}
+
+.avatar-backpack {
+  position: absolute;
+  bottom: 2px;
+  left: -12px;
+  font-size: 2.3rem;
+  pointer-events: none;
+}
+
+.avatar-accessory {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.8rem;
+  pointer-events: none;
+}
+
+.avatar-hand {
+  position: absolute;
+  bottom: 8px;
+  right: -15px;
+  font-size: 2.3rem;
+  pointer-events: none;
+}
+
+.avatar-arrows {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: #455a64;
+}
+
+.arrow-btn {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.header-avatar {
+  background: #fff;
+  border: 3px solid #2c3e50;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #2c3e50;
+  transition: all 0.1s ease;
+}
+
+.header-avatar:active {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
