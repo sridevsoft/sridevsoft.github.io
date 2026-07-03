@@ -3,152 +3,681 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy – Sridevsoft</title>
+  <meta name="description" content="Sridevsoft - Premium mobile applications for meditation, chanting, devotional songs, and relaxation. Find peace and mindfulness.">
+  <title>Sridevsoft | Devotional & Meditation Apps</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+  
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg-dark: #0a0e17;
+      --bg-card: rgba(255, 255, 255, 0.03);
+      --border-card: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-primary: #8b5cf6; /* Purple */
+      --accent-secondary: #f59e0b; /* Amber */
+      --accent-glow: rgba(139, 92, 246, 0.15);
+      --font-sans: 'Outfit', sans-serif;
+      --font-serif: 'Playfair Display', serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #a1c4fd 100%);
-      min-height: 100vh;
-      padding: 40px 20px;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
-    .card {
-      max-width: 800px;
+
+    /* Glowing decorative backgrounds */
+    .glow-blob {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, rgba(11,15,25,0) 70%);
+      z-index: -1;
+      filter: blur(40px);
+    }
+    
+    .blob-1 { top: -100px; right: -100px; }
+    .blob-2 { top: 600px; left: -200px; }
+    .blob-3 { bottom: -100px; right: -100px; }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-      overflow: hidden;
+      padding: 0 24px;
     }
-    .header {
-      background: linear-gradient(135deg, #f7971e, #ffd200);
-      padding: 36px 40px;
+
+    /* Header & Navigation */
+    header {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border-card);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 14, 23, 0.8);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-main);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo-icon {
+      font-size: 1.8rem;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, var(--accent-primary), rgba(139, 92, 246, 0.8));
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 99px;
+      font-size: 0.9rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+      color: #fff;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 100px 0 80px 0;
       text-align: center;
     }
-    .header h1 { font-size: 2rem; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-    .header p { color: #fff8e1; margin-top: 6px; font-size: 0.95rem; }
-    .meta {
-      background: #fffde7; padding: 16px 40px;
-      border-bottom: 1px solid #ffe082;
-      font-size: 0.9rem; color: #5d4037;
+
+    .hero-tag {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      color: #a78bfa;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
-    .content { padding: 32px 40px; }
-    .section { margin-bottom: 28px; }
-    .section h2 {
-      font-size: 1.1rem; font-weight: bold;
-      color: #fff; padding: 8px 16px;
-      border-radius: 8px; margin-bottom: 10px;
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      line-height: 1.15;
+      font-weight: 600;
+      margin-bottom: 24px;
+      background: linear-gradient(to right, #ffffff, #d1d5db);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto 40px auto;
+      font-weight: 300;
+    }
+
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-primary) 0%, #6d28d9 100%);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border: 1px solid var(--border-card);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Core Pillars / Mission */
+    .features-intro {
+      padding: 60px 0;
+      border-top: 1px solid var(--border-card);
+      border-bottom: 1px solid var(--border-card);
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .intro-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    .intro-card {
+      padding: 24px;
+    }
+
+    .intro-icon {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
       display: inline-block;
     }
-    .section:nth-child(1) h2 { background: #42a5f5; }
-    .section:nth-child(2) h2 { background: #66bb6a; }
-    .section:nth-child(3) h2 { background: #ab47bc; }
-    .section:nth-child(4) h2 { background: #ef5350; }
-    .section:nth-child(5) h2 { background: #ff7043; }
-    .section:nth-child(6) h2 { background: #26c6da; }
-    .section:nth-child(7) h2 { background: #ec407a; }
-    .section:nth-child(8) h2 { background: #7e57c2; }
-    .section p { color: #444; line-height: 1.7; }
+
+    .intro-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .intro-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Apps Section */
+    .apps-section {
+      padding: 100px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
     .apps-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 10px;
-      margin-top: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
     }
-    .app-item {
-      background: #f3f4f6;
-      border-left: 4px solid #f7971e;
-      border-radius: 6px;
-      padding: 8px 12px;
+
+    .app-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+
+    .app-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(139, 92, 246, 0.4);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2), 0 0 15px rgba(139, 92, 246, 0.1);
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary));
+      opacity: 0.7;
+    }
+
+    .app-top {
+      margin-bottom: 20px;
+    }
+
+    .app-icon-wrapper {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .app-card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #fff;
+    }
+
+    .app-pkg {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: monospace;
+      margin-bottom: 12px;
+      word-break: break-all;
+    }
+
+    .app-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .app-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+      margin-top: auto;
     }
-    .app-item strong { display: block; color: #333; }
-    .app-item span { color: #888; font-size: 0.78rem; }
-    .footer {
-      text-align: center; padding: 20px;
-      background: #f3e5f5; color: #7b1fa2;
-      font-size: 0.85rem; border-top: 1px solid #ce93d8;
+
+    .app-link:hover {
+      color: #fff;
     }
-    a { color: #f7971e; }
+
+    .app-link svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* Contact Section */
+    .contact {
+      padding: 80px 0;
+      background: rgba(255, 255, 255, 0.01);
+      border-top: 1px solid var(--border-card);
+      text-align: center;
+    }
+
+    .contact-card {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      backdrop-filter: blur(12px);
+    }
+
+    .contact h2 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+    }
+
+    .contact p {
+      color: var(--text-muted);
+      margin-bottom: 28px;
+    }
+
+    .contact-email {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-card);
+      border-radius: 99px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-email:hover {
+      background: var(--accent-primary);
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border-card);
+      background: #060a10;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-main);
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="header">
-      <h1>🪷 Privacy Policy</h1>
-      <p>Sridevsoft – All Apps</p>
-    </div>
-    <div class="meta">
-      <strong>Developer:</strong> Sridevsoft &nbsp;|&nbsp;
-      <strong>Contact:</strong> <a href="mailto:sridevsoft@gmail.com">sridevsoft@gmail.com</a> &nbsp;|&nbsp;
-      <strong>Last updated:</strong> July 2, 2026
-    </div>
-    <div class="content">
 
-      <div class="section">
-        <h2>Apps Covered</h2>
-        <p>This privacy policy applies to all applications developed and published by Sridevsoft on Google Play, including:</p>
-        <div class="apps-grid">
-          <div class="app-item"><strong>Arunachaleswara Mantras</strong><span>com.desioffers.arunachaleswarachants</span></div>
-          <div class="app-item"><strong>Ayyappa Songs</strong><span>com.desioffers.sriayyappaswamychants</span></div>
-          <div class="app-item"><strong>Buddha Chants</strong><span>com.desioffers.buddhachants</span></div>
-          <div class="app-item"><strong>Dhanvantri Mantra Chants</strong><span>com.desioffers.dhanvantari</span></div>
-          <div class="app-item"><strong>Ganesh Ganapathi Moola Mantra</strong><span>com.desioffers.ganapathimoolamantra</span></div>
-          <div class="app-item"><strong>Guru Dakshinamurthy Mantras HD</strong><span>com.desioffers.dakshinamurthychants</span></div>
-          <div class="app-item"><strong>Kala Bhairava Ashtakam</strong><span>com.desioffers.kalabhairavachants</span></div>
-          <div class="app-item"><strong>Kleem Mantra</strong><span>com.desioffers.kleemmantra</span></div>
-          <div class="app-item"><strong>Kukke Subramanya</strong><span>com.desioffers.kukkechants</span></div>
-          <div class="app-item"><strong>Lord Venkateswara Mantras</strong><span>com.desioffers.lordvenkateswarachants</span></div>
-          <div class="app-item"><strong>Manjunatha Mantra HD</strong><span>com.desioffers.manjunathachants</span></div>
-          <div class="app-item"><strong>Murugan Subramanya Mantras</strong><span>com.desioffers.lordmurugachants</span></div>
-          <div class="app-item"><strong>Om Mantra HD</strong><span>com.desioffers.omchants</span></div>
-          <div class="app-item"><strong>Om Sakthi HD</strong><span>com.desioffers.omsakthi</span></div>
-          <div class="app-item"><strong>Prathyangira Devi Chants</strong><span>com.desioffers.pratyangirachants</span></div>
-          <div class="app-item"><strong>Rama Mantra</strong><span>com.desioffers.ramachants</span></div>
-          <div class="app-item"><strong>Sri Suktam Vedha Mantra</strong><span>com.desioffers.srisuktam</span></div>
-          <div class="app-item"><strong>Yellamma Devi Mantras</strong><span>com.desioffers.yellammachants</span></div>
-          <div class="app-item"><strong>Sleep Relax</strong><span>com.desioffers.sleeprelex</span></div>
+  <!-- Background Glow Effects -->
+  <div class="glow-blob blob-1"></div>
+  <div class="glow-blob blob-2"></div>
+  <div class="glow-blob blob-3"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#" class="logo">
+        <span class="logo-icon">🪷</span>
+        <span>Sridevsoft</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="#apps">Apps</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="./privacy/" class="nav-btn">Privacy Policy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-tag">Mindfulness & Meditation</div>
+      <h1>Quiet the Mind. Elevate the Soul.</h1>
+      <p>Sridevsoft builds simple, elegant mobile applications designed to bring peace, spiritual chanting, and relaxation to your daily routine.</p>
+      <div class="cta-group">
+        <a href="#apps" class="btn btn-primary">Browse Apps</a>
+        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Mission -->
+  <section class="features-intro">
+    <div class="container">
+      <div class="intro-grid">
+        <div class="intro-card">
+          <span class="intro-icon">🌸</span>
+          <h3>Traditional Chants</h3>
+          <p>Carefully structured audio recordings of sacred mantras, mantras repetition counts, and clean lyrics in native scripts.</p>
+        </div>
+        <div class="intro-card">
+          <span class="intro-icon">🧘</span>
+          <h3>Meditation Aids</h3>
+          <p>Built-in meditation ambient soundscapes, bells, and timing controls to facilitate daily introspection and spiritual growth.</p>
+        </div>
+        <div class="intro-card">
+          <span class="intro-icon">📱</span>
+          <h3>Offline access</h3>
+          <p>All core audio contents and features are fully functional offline, enabling peace of mind without internet distractions.</p>
         </div>
       </div>
-
-      <div class="section">
-        <h2>Overview</h2>
-        <p>Sridevsoft built all the above apps as free applications. These services are provided by Sridevsoft at no cost and are intended for use as is.</p>
-      </div>
-
-      <div class="section">
-        <h2>Information Collection</h2>
-        <p>Sridevsoft apps do not collect, transmit, store, or share any personally identifiable information or user data. Any device permissions requested (such as vibration for tactile feedback or wallpaper setting) are processed entirely locally on the device and are never shared.</p>
-      </div>
-
-      <div class="section">
-        <h2>Third-Party Services</h2>
-        <p>Our applications use third-party services that may collect information used to identify you. We integrate the following service provider:</p>
-        <p><strong>Google AdMob:</strong> We use Google AdMob to display advertisements in our applications. AdMob may collect and process device identifiers, location data, and other advertising data to serve and personalize ads. You can review Google's privacy policy at <a href="https://policies.google.com/privacy" target="_blank">Google Privacy & Terms</a> and see how they use information from apps at <a href="https://policies.google.com/technologies/partner-sites" target="_blank">How Google uses information from sites or apps that use our services</a>.</p>
-      </div>
-
-      <div class="section">
-        <h2>Log Data</h2>
-        <p>In case of an error, the app may collect data called Log Data via third-party products. This may include your device's IP address, device name, OS version, and app configuration at the time of error.</p>
-      </div>
-
-      <div class="section">
-        <h2>Children's Privacy</h2>
-        <p>Sridevsoft apps are intended for users aged 10 and older. We do not knowingly collect personal information from children under 13 in compliance with COPPA. If you believe a child under 13 has provided personal information, please contact us at <a href="mailto:sridevsoft@gmail.com">sridevsoft@gmail.com</a> and we will promptly remove it.</p>
-      </div>
-
-      <div class="section">
-        <h2>Changes to This Policy</h2>
-        <p>Sridevsoft may update this privacy policy from time to time. Changes will be posted on this page.</p>
-      </div>
-
-      <div class="section">
-        <h2>Contact</h2>
-        <p>For questions about this privacy policy, contact Sridevsoft at: <a href="mailto:sridevsoft@gmail.com">sridevsoft@gmail.com</a></p>
-      </div>
-
     </div>
-    <div class="footer">© 2026 Sridevsoft. All rights reserved.</div>
-  </div>
+  </section>
+
+  <!-- Featured Apps Section -->
+  <section class="apps-section" id="apps">
+    <div class="container">
+      <div class="section-header">
+        <h2>Our Publications</h2>
+        <p>Explore our wide collection of free devotional and relaxation applications published on Google Play.</p>
+      </div>
+
+      <div class="apps-grid">
+        <!-- Buddha Chants -->
+        <div class="app-card">
+          <div class="app-top">
+            <div class="app-icon-wrapper" style="background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2);">🕉️</div>
+            <h3>Buddha Chants</h3>
+            <p class="app-pkg">com.desioffers.buddhachants</p>
+            <p class="app-desc">Experience spiritual Buddhist chanting, serene zen soundscapes, bells, and mala beads counters.</p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.desioffers.buddhachants" class="app-link" target="_blank">
+            <span>Get on Play Store</span>
+            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/></svg>
+          </a>
+        </div>
+
+        <!-- Ganesh -->
+        <div class="app-card">
+          <div class="app-top">
+            <div class="app-icon-wrapper" style="background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2);">🦣</div>
+            <h3>Ganesh Ganapathi Moola</h3>
+            <p class="app-pkg">com.desioffers.ganapathimoolamantra</p>
+            <p class="app-desc">Powerful Lord Ganesha chants and moola mantras to remove obstacles and invoke prosperity.</p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.desioffers.ganapathimoolamantra" class="app-link" target="_blank">
+            <span>Get on Play Store</span>
+            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/></svg>
+          </a>
+        </div>
+
+        <!-- Kala Bhairava -->
+        <div class="app-card">
+          <div class="app-top">
+            <div class="app-icon-wrapper" style="background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.2);">🛡️</div>
+            <h3>Kala Bhairava Ashtakam</h3>
+            <p class="app-pkg">com.desioffers.kalabhairavachants</p>
+            <p class="app-desc">Authentic Kala Bhairava chants for protection, mental strength, and spiritual power.</p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.desioffers.kalabhairavachants" class="app-link" target="_blank">
+            <span>Get on Play Store</span>
+            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/></svg>
+          </a>
+        </div>
+
+        <!-- Sleep Relax -->
+        <div class="app-card">
+          <div class="app-top">
+            <div class="app-icon-wrapper" style="background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.2);">🌙</div>
+            <h3>Sleep Relax</h3>
+            <p class="app-pkg">com.desioffers.sleeprelex</p>
+            <p class="app-desc">Relaxing high-quality ambient audios, rain sounds, and nature soundscapes to fall asleep peacefully.</p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.desioffers.sleeprelex" class="app-link" target="_blank">
+            <span>Get on Play Store</span>
+            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/></svg>
+          </a>
+        </div>
+
+        <!-- Ayyappa Songs -->
+        <div class="app-card">
+          <div class="app-top">
+            <div class="app-icon-wrapper" style="background: rgba(245, 158, 11, 0.1); border-color: rgba(245, 158, 11, 0.2);">🐅</div>
+            <h3>Ayyappa Songs</h3>
+            <p class="app-pkg">com.desioffers.sriayyappaswamychants</p>
+            <p class="app-desc">Listen to traditional Lord Ayyappa devotional songs, chants, and Sabarimala prayers.</p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.desioffers.sriayyappaswamychants" class="app-link" target="_blank">
+            <span>Get on Play Store</span>
+            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/></svg>
+          </a>
+        </div>
+
+        <!-- Arunachaleswara -->
+        <div class="app-card">
+          <div class="app-top">
+            <div class="app-icon-wrapper" style="background: rgba(139, 92, 246, 0.1); border-color: rgba(139, 92, 246, 0.2);">🌋</div>
+            <h3>Arunachaleswara Mantras</h3>
+            <p class="app-pkg">com.desioffers.arunachaleswarachants</p>
+            <p class="app-desc">Serene mantras dedicated to Lord Shiva in the form of Arunachala Hill.</p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.desioffers.arunachaleswarachants" class="app-link" target="_blank">
+            <span>Get on Play Store</span>
+            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/></svg>
+          </a>
+        </div>
+
+        <!-- Lord Venkateswara -->
+        <div class="app-card">
+          <div class="app-top">
+            <div class="app-icon-wrapper" style="background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.2);">✨</div>
+            <h3>Lord Venkateswara Mantras</h3>
+            <p class="app-pkg">com.desioffers.lordvenkateswarachants</p>
+            <p class="app-desc">Beautiful HD chanting of Venkateswara Suprabhatam, Govinda Namavali, and Vishnu mantras.</p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.desioffers.lordvenkateswarachants" class="app-link" target="_blank">
+            <span>Get on Play Store</span>
+            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/></svg>
+          </a>
+        </div>
+
+        <!-- Murugan Subramanya -->
+        <div class="app-card">
+          <div class="app-top">
+            <div class="app-icon-wrapper" style="background: rgba(236, 72, 153, 0.1); border-color: rgba(236, 72, 153, 0.2);">🦚</div>
+            <h3>Murugan Subramanya Mantras</h3>
+            <p class="app-pkg">com.desioffers.lordmurugachants</p>
+            <p class="app-desc">Devotional chanting for Lord Muruga/Subramanya to experience peace and strength.</p>
+          </div>
+          <a href="https://play.google.com/store/apps/details?id=com.desioffers.lordmurugachants" class="app-link" target="_blank">
+            <span>Get on Play Store</span>
+            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/></svg>
+          </a>
+        </div>
+
+        <!-- More apps card -->
+        <div class="app-card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);">
+          <div class="app-top">
+            <div class="app-icon-wrapper" style="background: rgba(255,255,255,0.1);">📱</div>
+            <h3>And 11+ Other Apps</h3>
+            <p class="app-pkg">com.desioffers.*</p>
+            <p class="app-desc">We also publish Rama Mantra, Sri Suktam, Dhanvantri, Om Sakthi, Yellamma Devi, Kleem, Prathyangira, and more.</p>
+          </div>
+          <a href="https://play.google.com/store/apps/developer?id=Sridevsoft" class="app-link" target="_blank">
+            <span>View Full Developer Catalog</span>
+            <svg viewBox="0 0 24 24"><path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42 5.43 5.43H5v2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <h2>Support & Contact</h2>
+        <p>If you have any feedback, questions about our applications, or support inquiries, please send us an email.</p>
+        <a href="mailto:sridevsoft@gmail.com" class="contact-email">
+          <span>📧</span> sridevsoft@gmail.com
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Sridevsoft. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#apps">Apps</a>
+        <a href="#contact">Contact</a>
+        <a href="./privacy/">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
